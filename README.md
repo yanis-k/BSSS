@@ -1,2 +1,3 @@
 # BSSS
-Implementation for the Blind Speech Source Separation
+Python3 implementation for my thesis on the Blind Speech Source Separation problem.
+
