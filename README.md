@@ -1,2 +1,2 @@
 # BSSS
-Blind Sound Source Separation
+Implementation for the Blind Speech Source Separation
