@@ -105,6 +105,7 @@ if mode == "test":
     ts = datetime.fromtimestamp(datetime.timestamp(datetime.now()))
     ack = ""
     if "4608" in str(args.mix): ack = "ACK"
+    else: ack = "NACK"
     if "2472" in str(args.mix): ack = "NACK"
     ack += "_" + str(args.mix[-7:-6]) + "dB"  # manipulate indexes if double-triple + decimal point digit dB SNR,
     # e.g. 5.2dB, 12dB, 12.5dB
@@ -150,18 +151,18 @@ if mode == "test":
     print('==========================================')
     print('\nSource 1 (Estimation):\n')
     print("Original to Mix:")
-    f_eval.evaluation(out_path + 's1.wav', out_path + 'mix.wav')
+    f_eval.evaluation(out_path + 's1.wav', out_path + 'mix.wav', out_path + 'mix.wav')
     print("\nto Source 1:")
-    f_eval.evaluation(out_path + 's1.wav', out_path + 's1est.wav')
+    f_eval.evaluation(out_path + 's1.wav', out_path + 's1est.wav', out_path + 'mix.wav')
     print("\nto Source 2:")
-    f_eval.evaluation(out_path + 's2.wav', out_path + 's1est.wav')
+    f_eval.evaluation(out_path + 's2.wav', out_path + 's1est.wav', out_path + 'mix.wav')
     print('==========================================')
     print('\nSource 2 (Estimation):\n')
     print("Original to Mix:")
-    f_eval.evaluation(out_path + 's2.wav', out_path + 'mix.wav')
+    f_eval.evaluation(out_path + 's2.wav', out_path + 'mix.wav', out_path + 'mix.wav')
     print("\nto Source 1:")
-    f_eval.evaluation(out_path + 's1.wav', out_path + 's2est.wav')
+    f_eval.evaluation(out_path + 's1.wav', out_path + 's2est.wav', out_path + 'mix.wav')
     print("\nto Source 2:")
-    f_eval.evaluation(out_path + 's2.wav', out_path + 's2est.wav')
+    f_eval.evaluation(out_path + 's2.wav', out_path + 's2est.wav', out_path + 'mix.wav')
 
     ring_a_bell()
