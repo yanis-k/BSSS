@@ -40,8 +40,8 @@ while i < len(files):
 
 duration_mins = int(len(zero) / (fs * 60))
 duration_secs = int(len(zero) / (fs) - duration_mins * 60)
-print("\n... Files in", path, "sampled @", fs, "Hz,", duration_mins, "mins", duration_secs, "seconds total")
-
+print("Files in", path, "sampled @", fs, "Hz,", duration_mins, "mins", duration_secs, "seconds total")
+print("Total Time Frames: ", len(zero))
 sf.write(out_filename, zero, fs)
 print("...", out_filename, "file exported")
 
