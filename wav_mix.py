@@ -8,7 +8,7 @@ import librosa
 import soundfile as sf
 import argparse
 from pydub import AudioSegment
-from utils import SNR
+from utils import SSR
 
 parser = argparse.ArgumentParser()
 parser.add_argument("sp1", help="Source 1 Path: the path of the directory the .wav file of the first speaker"
@@ -33,15 +33,15 @@ sp2, Fs2 = librosa.load(path2, sr = None)
 
 assert Fs1 == Fs2
 
-snr_init = SNR(sp1,sp2)
-print(SNR(sp1,sp2))
+ssr_init = SSR(sp1, sp2)
+print(round(ssr_init, 3))
 
 if len(sp1) > len(sp2):
 	l = len(sp2)
 	l = int((l / Fs2) * 1000)
 	newAudio = AudioSegment.from_wav(args.sp1)
 	newAudio = newAudio[0:l]
-	newAudio += snr_init + float(args.dB)
+	newAudio += ssr_init + float(args.dB)
 	new_pathfile = path1[:-4] + dB_ext + ".wav"
 	newAudio.export(new_pathfile , format="wav")
 	sp1, Fs1 = librosa.load(new_pathfile, sr = None)
@@ -51,19 +51,19 @@ elif len(sp1) < len(sp2):
 	l = int((l / Fs1) * 1000)
 	newAudio = AudioSegment.from_wav(args.sp2)
 	newAudio = newAudio[0:l]
-	newAudio += snr_init + float(args.dB)
+	newAudio += ssr_init + float(args.dB)
 	new_pathfile = path2[:-4] + dB_ext + ".wav"
 	newAudio.export(new_pathfile, format="wav")
 	sp2, Fs2 = librosa.load(new_pathfile, sr=None)
 
 elif len(sp1) == len(sp2):
 	newAudio = AudioSegment.from_wav(args.sp2)
-	newAudio += snr_init + float(args.dB)
+	newAudio += ssr_init + float(args.dB)
 	new_pathfile = path2[:-4] + dB_ext + ".wav"
 	newAudio.export(new_pathfile, format="wav")
 	sp2, Fs2 = librosa.load(new_pathfile, sr=None)
 
-print(SNR(sp1, sp2))
+print(round(SSR(sp1, sp2), 3))
 
 result = sp1+sp2
 
